@@ -14,5 +14,7 @@ public class GameHandler {
 	
 	public void handleGame(){
 		player.render();
+		
+		Direction direction = InputHandler.pollKeyboard();
 	}
 }

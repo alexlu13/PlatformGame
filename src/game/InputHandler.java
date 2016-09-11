@@ -14,5 +14,4 @@ public class InputHandler {
 		
 		return Direction.NULL;
 	}
-	
 }

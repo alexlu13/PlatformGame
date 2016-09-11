@@ -78,6 +78,8 @@ public class GUI {
 				}glEnd();
 			}
 			glColor3f(1, 1, 1);
+			
+			// END OF TEST
 		}
 		
 	}
