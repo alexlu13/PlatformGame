@@ -2,19 +2,26 @@ package game;
 
 public class GameHandler {
 	
-	private Player player;
+	private PlayerHandler player;
+	private LevelHandler level;
+	
+	private GameState state;
 	
 	public GameHandler(){
+		state = GameState.GAME;
 	}
 	
+	// Initialize the handlers
 	public void handlerInit(){
-		player = new Player(100, 150, 3, 100);
-		player.loadTexture("src\\game\\GameFiles\\Player\\Player.png");
+		
+		player = new PlayerHandler();
+		level = new LevelHandler();
 	}
 	
+	// Method to handle the game
 	public void handleGame(){
-		player.render();
-		
-		Direction direction = InputHandler.pollKeyboard();
+		player.handlePlayer();
 	}
+	
+
 }
