@@ -6,7 +6,6 @@ public class PlayerHandler {
 	
 	public PlayerHandler(){
 		player = new Player(100, 130, 8, 100);
-		player.loadTexture("src\\Game\\GameFiles\\PlayerImages\\Player.png");
 	}
 	
 	public void handlePlayer(){

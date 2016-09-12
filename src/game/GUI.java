@@ -45,11 +45,8 @@ public class GUI {
 	}
 	
 	private void loop(){
-		int numSquares = 10;
-		int height = 80;
 		while(!Display.isCloseRequested() && !isKeyDown(KEY_ESCAPE)){
 			
-
 			// Update and vertical sync
 			Display.update();
 			Display.sync(maxFPS);
@@ -58,28 +55,6 @@ public class GUI {
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  
 			
 			handler.handleGame();
-			
-			// TESTING DELETE LATER
-			
-			for (int i = 0; i < numSquares; i++){
-
-				glDisable(GL_TEXTURE_2D);
-				glColor3f(0, 1, 0);
-				glBegin(GL_QUADS);{
-					glVertex2f(i * (xResolution / numSquares), 0);
-					glVertex2f((i + 1) * (xResolution / numSquares), 0);
-					glVertex2f((i + 1) * (xResolution / numSquares), height);
-					glVertex2f(i * (xResolution / numSquares), height);
-				}glEnd();
-				glColor3f(1, 0, 0);
-				glBegin(GL_LINE_STRIP);{
-					glVertex2f((i+1) * (xResolution / numSquares), 0);
-					glVertex2f((i+1) * (xResolution / numSquares), height);
-				}glEnd();
-			}
-			glColor3f(1, 1, 1);
-			
-			// END OF TEST
 		}
 		
 	}

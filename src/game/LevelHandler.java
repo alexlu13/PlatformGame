@@ -4,6 +4,27 @@ package game;
 
 public class LevelHandler {
 
-
+	private Tile tiles[];
+	
+	private final int TEST_TILE_NUM = 10;
+	
+	// Currently a placeholder constructor -> change this later
+	public LevelHandler(){
+		tiles = new Tile[TEST_TILE_NUM];
+		
+		for(int i = 0; i < TEST_TILE_NUM; i++){
+			tiles[i] = new FloorTile(i * 80 + 40, 40, 80);
+		}
+	}
+	
+	public void handleLevel(){
+		renderTiles();
+	}
+	
+	private void renderTiles(){
+		for(int i = 0; i < TEST_TILE_NUM; i++){
+			tiles[i].render();
+		}
+	}
 	
 }

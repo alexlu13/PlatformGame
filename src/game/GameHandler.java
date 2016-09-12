@@ -21,6 +21,7 @@ public class GameHandler {
 	// Method to handle the game
 	public void handleGame(){
 		player.handlePlayer();
+		level.handleLevel();
 	}
 	
 

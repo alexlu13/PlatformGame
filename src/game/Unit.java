@@ -9,8 +9,6 @@ public abstract class Unit {
 	// Position
 	protected Vector position;
 	
-	protected int imageID;
-	
 	// Size of the unit in pixels
 	protected float size;
 	
@@ -36,32 +34,6 @@ public abstract class Unit {
 	public abstract void moveLeft();
 	public abstract void moveRight();
 	
-	// Load the texture
-	public void loadTexture(String fileName){
-		imageID = TextureLoader.loadTexture(fileName);
-	}
-	
-	// Method to render the unit
-	public void render(){
-		
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(imageID, GL_TEXTURE_2D);
-		
-		glBegin(GL_QUADS);{
-			
-			glTexCoord2f(0, 1);
-			glVertex2f(position.getX() - (size / 2), position.getY() - (size / 2));
-			
-			glTexCoord2f(1, 1);
-			glVertex2f(position.getX() + (size / 2), position.getY() - (size / 2));
-			
-			glTexCoord2f(1, 0);
-			glVertex2f(position.getX() + (size / 2), position.getY() + (size / 2));
-			
-			glTexCoord2f(0, 0);
-			glVertex2f(position.getX() - (size / 2), position.getY() + (size / 2));
-			
-			
-		}glEnd();
-	}
+	public abstract void render();
+
 }

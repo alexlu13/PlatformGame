@@ -8,41 +8,20 @@ import static org.lwjgl.opengl.GL11.glEnd;
 import static org.lwjgl.opengl.GL11.glTexCoord2f;
 import static org.lwjgl.opengl.GL11.glVertex2f;
 
-public class Player extends Unit{
+public class FloorTile extends Tile{
 
-	private static int imageID;
+	private final String TEXTURE_FILE = "src\\game\\GameFiles\\Images\\TileImages\\TestTile.png";
+	
 	private static boolean loadedTexture = false;
+	private static int imageID;
 	
-	private static final String TEXTURE_FILE = "src\\game\\GameFiles\\Images\\PlayerImages\\Player.png";
-	
-	public Player(float x, float y, float xSpeed, float size){
-		super(x, y, xSpeed, size);
+	public FloorTile(float x, float y, float size){
+		super(x, y, size);
 		
 		if(!loadedTexture){
-			System.out.println(TEXTURE_FILE);
 			imageID = TextureLoader.loadTexture(TEXTURE_FILE);
 			loadedTexture = true;
 		}
-	}
-
-	@Override
-	public void moveUp() {
-		
-	}
-
-	@Override
-	public void moveDown() {
-		
-	}
-
-	@Override
-	public void moveLeft() {
-		position.addX(-xSpeed);
-	}
-
-	@Override
-	public void moveRight() {
-		position.addX(xSpeed);
 	}
 	
 	// Method to render the unit
@@ -66,5 +45,4 @@ public class Player extends Unit{
 			
 		}glEnd();
 	}
-	
 }
