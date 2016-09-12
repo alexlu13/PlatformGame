@@ -13,9 +13,9 @@ public class GameHandler {
 	
 	// Initialize the handlers
 	public void handlerInit(){
-		
-		player = new PlayerHandler();
+
 		level = new LevelHandler();
+		player = new PlayerHandler();
 	}
 	
 	// Method to handle the game

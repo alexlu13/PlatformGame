@@ -13,7 +13,7 @@ public class FloorTile extends Tile{
 	private final String TEXTURE_FILE = "src\\game\\GameFiles\\Images\\TileImages\\TestTile.png";
 	
 	private static boolean loadedTexture = false;
-	private static int imageID;
+	private static int imageID = 0;
 	
 	public FloorTile(float x, float y, float size){
 		super(x, y, size);
@@ -26,8 +26,7 @@ public class FloorTile extends Tile{
 	
 	// Method to render the unit
 	public void render(){
-		glBindTexture(imageID, GL_TEXTURE_2D);
-		
+		glBindTexture(GL_TEXTURE_2D, imageID);
 		glBegin(GL_QUADS);{
 			
 			glTexCoord2f(0, 1);

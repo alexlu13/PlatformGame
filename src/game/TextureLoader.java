@@ -17,7 +17,6 @@ public class TextureLoader {
 	
 	public static int loadTexture(String fileName){
 		BufferedImage image = null;
-		File here = new File(".");
 		try {
 			image = ImageIO.read(new File(fileName));
 		} catch (IOException e) {
@@ -40,6 +39,8 @@ public class TextureLoader {
 		buffer.flip();
 		
 	    int textureID = glGenTextures(); //Generate texture ID
+	    glBindTexture(GL_TEXTURE_2D, textureID); //Bind texture ID
+	        
 	    //Setup wrap mode
 	    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL12.GL_CLAMP_TO_EDGE);
 	    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL12.GL_CLAMP_TO_EDGE);

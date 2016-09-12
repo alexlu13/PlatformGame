@@ -17,7 +17,6 @@ public class GUI {
 		xResolution = 800;
 		yResolution = 600;
 		maxFPS = 60;
-		handler = new GameHandler();
 		init();
 	}
 	
@@ -33,14 +32,17 @@ public class GUI {
 		}
 		
 		// initialize OpenGL
-	    glMatrixMode(GL_PROJECTION);
 	    glLoadIdentity();
 	    glOrtho(0, 800, 0, 600, 1, -1);
-	    glMatrixMode(GL_MODELVIEW);
 	    
+	    glMatrixMode(GL_MODELVIEW);
+	    glEnable(GL_BLEND);
+	    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	    glEnable(GL_TEXTURE_2D);
+
+		handler = new GameHandler();
 	    handler.handlerInit();
 	    
-	    glEnable(GL_TEXTURE_2D);
 	    loop();
 	}
 	

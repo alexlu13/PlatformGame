@@ -10,7 +10,7 @@ import static org.lwjgl.opengl.GL11.glVertex2f;
 
 public class Player extends Unit{
 
-	private static int imageID;
+	private static int imageID = 0;
 	private static boolean loadedTexture = false;
 	
 	private static final String TEXTURE_FILE = "src\\game\\GameFiles\\Images\\PlayerImages\\Player.png";
@@ -19,7 +19,6 @@ public class Player extends Unit{
 		super(x, y, xSpeed, size);
 		
 		if(!loadedTexture){
-			System.out.println(TEXTURE_FILE);
 			imageID = TextureLoader.loadTexture(TEXTURE_FILE);
 			loadedTexture = true;
 		}
@@ -47,7 +46,7 @@ public class Player extends Unit{
 	
 	// Method to render the unit
 	public void render(){
-		glBindTexture(imageID, GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, imageID);
 		
 		glBegin(GL_QUADS);{
 			
