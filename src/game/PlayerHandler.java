@@ -5,7 +5,7 @@ public class PlayerHandler {
 	private Player player; 
 	
 	public PlayerHandler(){
-		player = new Player(100, 130, 8, 100);
+		player = new Player(100, 130, 8, 0.75f, 100);
 	}
 	
 	public void handlePlayer(){
@@ -29,6 +29,10 @@ public class PlayerHandler {
 			player.moveRight();
 			break;
 		
+		case NULL:
+			player.slowToRest();
+			break;
+			
 		default :
 			break;
 		}

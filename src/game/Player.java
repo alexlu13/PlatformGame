@@ -15,8 +15,10 @@ public class Player extends Unit{
 	
 	private static final String TEXTURE_FILE = "src\\game\\GameFiles\\Images\\PlayerImages\\Player.png";
 	
-	public Player(float x, float y, float xSpeed, float size){
-		super(x, y, xSpeed, size);
+	private static float curSpeed;
+	
+	public Player(float x, float y, float maxSpeed, float acceleration, float size){
+		super(x, y, maxSpeed, acceleration, size);
 		
 		if(!loadedTexture){
 			imageID = TextureLoader.loadTexture(TEXTURE_FILE);
@@ -36,12 +38,49 @@ public class Player extends Unit{
 
 	@Override
 	public void moveLeft() {
-		position.addX(-xSpeed);
+		if(!(curSpeed == -maxSpeed)){
+			if(curSpeed > -maxSpeed){
+				curSpeed -= acceleration;
+			}
+			
+			if(curSpeed < -maxSpeed){
+				curSpeed = -maxSpeed;
+			}
+		}
+		position.addX(curSpeed);
 	}
 
 	@Override
 	public void moveRight() {
-		position.addX(xSpeed);
+		
+		if(!(curSpeed == maxSpeed)){
+			if(curSpeed < maxSpeed){
+				curSpeed += acceleration;
+			}
+			
+			if(curSpeed > maxSpeed){
+				curSpeed = maxSpeed;
+			}
+		}
+		position.addX(curSpeed);
+	}
+	
+	public void slowToRest(){
+		if(curSpeed < 0){
+			curSpeed += acceleration;
+			
+			if(curSpeed > 0){
+				curSpeed = 0;
+			}
+		}else if (curSpeed > 0){
+			curSpeed -= acceleration;
+			
+			if(curSpeed < 0){
+				curSpeed = 0;
+			}
+		}
+		
+		position.addX(curSpeed);
 	}
 	
 	// Method to render the unit
@@ -65,5 +104,4 @@ public class Player extends Unit{
 			
 		}glEnd();
 	}
-	
 }
