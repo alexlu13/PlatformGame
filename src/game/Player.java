@@ -13,12 +13,14 @@ public class Player extends Unit{
 	private static int imageID = 0;
 	private static boolean loadedTexture = false;
 	
+	private int acceleration;
+	
 	private static final String TEXTURE_FILE = "src\\game\\GameFiles\\Images\\PlayerImages\\Player.png";
 	
 	private static float curSpeed;
 	
 	public Player(float x, float y, float maxSpeed, float acceleration, float size){
-		super(x, y, maxSpeed, acceleration, size);
+		super(x, y, maxSpeed, size);
 		
 		if(!loadedTexture){
 			imageID = TextureLoader.loadTexture(TEXTURE_FILE);

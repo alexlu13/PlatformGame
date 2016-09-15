@@ -14,20 +14,17 @@ public abstract class Unit {
 	
 	// Default speed for the unit to move
 	protected float maxSpeed;
-	protected float acceleration;
 	
 	// Constructors
-	public Unit(float x, float y, float maxSpeed, float acceleration, float size){
+	public Unit(float x, float y, float maxSpeed, float size){
 		position = new Vector(x, y);
 		this.maxSpeed = maxSpeed;
-		this.acceleration = acceleration;
 		this.size = size;
 	}
 	
-	public Unit(Vector vector, float xSpeed, float acceleration, float size){
+	public Unit(Vector vector, float xSpeed, float size){
 		this.position = new Vector(vector.getX(), vector.getY());
 		this.maxSpeed = xSpeed;
-		this.acceleration = acceleration;
 		this.size = size;
 	}
 	
