@@ -17,8 +17,7 @@ public class PlayerHandler {
 	
 	// Method to handle input while in game
 	private void handleGameInput(){
-		Direction direction = InputHandler.pollKeyboard();
-		
+		Direction direction = InputHandler.pollKeyboardArrowKeys();
 		switch(direction){
 		
 		case LEFT :

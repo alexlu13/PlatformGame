@@ -36,4 +36,8 @@ public abstract class Unit {
 	
 	public abstract void render();
 
+	public Vector getPosition(){
+		return position;
+	}
+	
 }
