@@ -38,4 +38,7 @@ public class PlayerHandler {
 		}
 	}
 	
+	public Player getPlayer(){
+		return player;
+	}
 }

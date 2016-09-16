@@ -2,8 +2,8 @@ package game;
 
 public class GameHandler {
 	
-	private PlayerHandler player;
-	private LevelHandler level;
+	private PlayerHandler playerHandler;
+	private LevelHandler levelHandler;
 	
 	private GameState state;
 	
@@ -14,15 +14,17 @@ public class GameHandler {
 	// Initialize the handlers
 	public void handlerInit(){
 
-		level = new LevelHandler();
-		player = new PlayerHandler();
+		levelHandler = new LevelHandler();
+		playerHandler = new PlayerHandler();
 	}
 	
 	// Method to handle the game
 	public void handleGame(){
-		player.handlePlayer();
-		level.handleLevel();
+		playerHandler.handlePlayer();
+		levelHandler.handleLevel();
 	}
-	
 
+	public Vector getPlayerPosition(){
+		return playerHandler.getPlayer().getPosition();
+	}
 }
