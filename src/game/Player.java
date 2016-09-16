@@ -13,7 +13,7 @@ public class Player extends Unit{
 	private static int imageID = 0;
 	private static boolean loadedTexture = false;
 	
-	private int acceleration;
+	private float acceleration;
 	
 	private static final String TEXTURE_FILE = "src\\game\\GameFiles\\Images\\PlayerImages\\Player.png";
 	
@@ -26,6 +26,7 @@ public class Player extends Unit{
 			imageID = TextureLoader.loadTexture(TEXTURE_FILE);
 			loadedTexture = true;
 		}
+		this.acceleration = acceleration;
 	}
 
 	@Override
@@ -49,6 +50,7 @@ public class Player extends Unit{
 				curSpeed = -maxSpeed;
 			}
 		}
+		
 		position.addX(curSpeed);
 	}
 
@@ -68,12 +70,16 @@ public class Player extends Unit{
 	}
 	
 	public void slowToRest(){
+		
+		// Accelerate towards stop when moving left
 		if(curSpeed < 0){
 			curSpeed += acceleration;
 			
 			if(curSpeed > 0){
 				curSpeed = 0;
 			}
+		
+		// Accelerate towards stop when moving right
 		}else if (curSpeed > 0){
 			curSpeed -= acceleration;
 			

@@ -35,4 +35,8 @@ public class Vector {
 	public void addY(float add){
 		y += add;
 	}
+	
+	public void print(){
+		System.out.println("X: " + x + " Y: " + y);
+	}
 }

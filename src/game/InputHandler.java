@@ -4,7 +4,7 @@ import org.lwjgl.input.*;
 
 public class InputHandler {
 
-	public static Direction pollKeyboard(){
+	public static Direction pollKeyboardArrowKeys(){
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)){
 			return Direction.LEFT;
