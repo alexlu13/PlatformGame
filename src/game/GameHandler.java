@@ -27,7 +27,7 @@ public class GameHandler {
 		enemyHandler.handleEnemies();
 	}
 
-	public Vector getPlayerPosition(){
-		return playerHandler.getPlayer().getPosition();
+	public Player getPlayer(){
+		return playerHandler.getPlayer();
 	}
 }

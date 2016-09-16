@@ -13,22 +13,21 @@ public class GUI {
 	private int maxFPS;
 	private GameHandler handler;
 	
-	private final int MARGIN = 50;
+	private final int MARGIN = 100;
 	
 	// Variables for scrolling the screen
-	private int curXRender;
-	private int curYRender;
+	private float curMinXDisplay;
+	private float curMinYDisplay;
 	
 	public GUI(){
 		xResolution = 800;
 		yResolution = 600;
 		maxFPS = 60;
-		curXRender = 0;
-		curYRender = 0;
-		init();
+		curMinXDisplay = 0;
+		curMinYDisplay = 0;
 	}
 	
-	private void init(){
+	public void init(){
 		
 		// Create Display
 		try{
@@ -40,9 +39,9 @@ public class GUI {
 		}
 		
 		// initialize OpenGL
+		glMatrixMode(GL_PROJECTION);
 	    glLoadIdentity();
-	    glOrtho(0, curXRender + xResolution, 0, curYRender + yResolution, 1, -1);
-	    
+	    glOrtho(0, curMinXDisplay + xResolution, 0, curMinYDisplay + yResolution, 1, -1);
 	    glMatrixMode(GL_MODELVIEW);
 	    glEnable(GL_BLEND);
 	    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -60,32 +59,36 @@ public class GUI {
 			// Update and vertical sync
 			Display.update();
 			Display.sync(maxFPS);
-			
+			// Scroll screen if necessary
+			scrollScreen();
 			// Clear screen
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  
 			
 			handler.handleGame();
-			
-			// Scroll screen if necessary
-			scrollScreen();
 		}
 		
 	}
 	
 	public void scrollScreen(){
-		Vector playerPosition = handler.getPlayerPosition();
-		
-		if(playerPosition.getX() > curXRender + xResolution - MARGIN){
+		Player player = handler.getPlayer();
+		System.out.println(curMinXDisplay + MARGIN);
+		if(player.getPosition().getX() > curMinXDisplay + xResolution - MARGIN){
 			
-			curXRender += 0.75f;
-			glOrtho(0, curXRender + xResolution, 0, curYRender + yResolution, 1, -1);
+
+			curMinXDisplay += player.getCurSpeed();
+			glMatrixMode(GL_PROJECTION);
+			glLoadIdentity();
+			glOrtho(curMinXDisplay, curMinXDisplay + xResolution, curMinYDisplay, curMinYDisplay + yResolution, 1, -1);
 			
-		}else if(playerPosition.getY() < curXRender + MARGIN){
-			
-			curXRender -= 0.75f;
-			glOrtho(0, curXRender + xResolution, 0, curYRender + yResolution, 1, -1);
+		}else if(player.getPosition().getX() < curMinXDisplay + MARGIN){
+
+			curMinXDisplay += player.getCurSpeed();
+			glMatrixMode(GL_PROJECTION);
+			glLoadIdentity();
+			glOrtho(curMinXDisplay, curMinXDisplay + xResolution, curMinYDisplay, curMinYDisplay + yResolution, 1, -1);
 			
 		}
+		//System.out.println(curMinXDisplay + xResolution);
 	}
 	
 }

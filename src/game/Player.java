@@ -112,4 +112,8 @@ public class Player extends Unit{
 			
 		}glEnd();
 	}
+	
+	public float getCurSpeed(){
+		return curSpeed;
+	}
 }

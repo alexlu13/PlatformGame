@@ -1,7 +1,5 @@
 package game;
 
-import static org.lwjgl.opengl.GL11.*;
-
 public abstract class Unit {
 
 	// Constants and variables
@@ -35,7 +33,7 @@ public abstract class Unit {
 	public abstract void moveRight();
 	
 	public abstract void render();
-
+	
 	public Vector getPosition(){
 		return position;
 	}
