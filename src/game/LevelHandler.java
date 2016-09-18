@@ -6,7 +6,9 @@ public class LevelHandler {
 
 	private Tile tiles[];
 	
-	private final int TEST_TILE_NUM = 10;
+	private final int TEST_TILE_NUM = 20;
+	
+	private Vector maxCoordinate;
 	
 	// Currently a placeholder constructor -> change this later
 	public LevelHandler(){
@@ -15,6 +17,7 @@ public class LevelHandler {
 		for(int i = 0; i < TEST_TILE_NUM; i++){
 			tiles[i] = new FloorTile(i * 80 + 40, 40, 80);
 		}
+		maxCoordinate = new Vector (80 * TEST_TILE_NUM, 600);
 	}
 	
 	public void handleLevel(){
@@ -27,4 +30,7 @@ public class LevelHandler {
 		}
 	}
 	
+	public Vector getMaxCoordinate(){
+		return maxCoordinate;
+	}
 }

@@ -1,5 +1,10 @@
 package game;
 
+import static org.lwjgl.opengl.GL11.GL_PROJECTION;
+import static org.lwjgl.opengl.GL11.glLoadIdentity;
+import static org.lwjgl.opengl.GL11.glMatrixMode;
+import static org.lwjgl.opengl.GL11.glOrtho;
+
 public class GameHandler {
 	
 	private PlayerHandler playerHandler;
@@ -29,5 +34,10 @@ public class GameHandler {
 
 	public Player getPlayer(){
 		return playerHandler.getPlayer();
+	}
+	
+	public Vector getLevelEndBounds(){
+		
+		return levelHandler.getMaxCoordinate();
 	}
 }

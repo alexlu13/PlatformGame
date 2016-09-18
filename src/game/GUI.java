@@ -59,11 +59,12 @@ public class GUI {
 			// Update and vertical sync
 			Display.update();
 			Display.sync(maxFPS);
-			// Scroll screen if necessary
-			scrollScreen();
+
 			// Clear screen
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  
 			
+			// Scroll screen if necessary
+			scrollScreen();
 			handler.handleGame();
 		}
 		
@@ -71,24 +72,38 @@ public class GUI {
 	
 	public void scrollScreen(){
 		Player player = handler.getPlayer();
-		System.out.println(curMinXDisplay + MARGIN);
-		if(player.getPosition().getX() > curMinXDisplay + xResolution - MARGIN){
-			
+		float playerX = player.getPosition().getX();
+		Vector boundaries = handler.getLevelEndBounds();
+		
+		float xBoundary = boundaries.getX();
+		
+		// Scroll right
+		if(playerX > curMinXDisplay + xResolution - MARGIN && playerX <= xBoundary - MARGIN){
 
 			curMinXDisplay += player.getCurSpeed();
+			
+			if(curMinXDisplay > xBoundary){
+				curMinXDisplay = xBoundary - xResolution;
+			}
+			
 			glMatrixMode(GL_PROJECTION);
 			glLoadIdentity();
 			glOrtho(curMinXDisplay, curMinXDisplay + xResolution, curMinYDisplay, curMinYDisplay + yResolution, 1, -1);
 			
-		}else if(player.getPosition().getX() < curMinXDisplay + MARGIN){
+		// Scroll left
+		}else if(player.getPosition().getX() < curMinXDisplay + MARGIN && playerX >= MARGIN){
 
 			curMinXDisplay += player.getCurSpeed();
+			
+			if(curMinXDisplay < 0){
+				curMinXDisplay = 0;
+			}
+			
 			glMatrixMode(GL_PROJECTION);
 			glLoadIdentity();
 			glOrtho(curMinXDisplay, curMinXDisplay + xResolution, curMinYDisplay, curMinYDisplay + yResolution, 1, -1);
-			
+
 		}
-		//System.out.println(curMinXDisplay + xResolution);
 	}
 	
 }
