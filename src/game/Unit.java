@@ -37,4 +37,8 @@ public abstract class Unit {
 	public Vector getPosition(){
 		return position;
 	}
+	
+	public float getSize(){
+		return size;
+	}
 }

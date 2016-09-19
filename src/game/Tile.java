@@ -8,6 +8,10 @@ public abstract class Tile {
 	
 	protected int imageID;
 	
+	protected float counterGravity;
+	
+	protected TileType type;
+	
 	// Constructors
 	public Tile(float x, float y, float size){
 		position = new Vector(x, y);
@@ -22,4 +26,15 @@ public abstract class Tile {
 	// Method to render the unit
 	public abstract void render();
 	
+	public TileType getTileType(){
+		return type;
+	}
+	
+	public Vector getPosition(){
+		return position;
+	}
+	
+	public float getSize(){
+		return size;
+	}
 }

@@ -13,82 +13,125 @@ public class Player extends Unit{
 	private static int imageID = 0;
 	private static boolean loadedTexture = false;
 	
-	private float acceleration;
+	private float xAcceleration;
+	private float yAcceleration;
 	
 	private static final String TEXTURE_FILE = "src\\game\\GameFiles\\Images\\PlayerImages\\Player.png";
 	
-	private static float curSpeed;
+	private float curXSpeed;
+	private float curYSpeed;
 	
-	public Player(float x, float y, float maxSpeed, float acceleration, float size){
+	private static final float GRAVITY = 0.5f;
+	
+	private boolean isJumping;
+	private boolean inAir;
+	
+	private long startJumpTime;
+	private long curJumpTime;
+	
+	// Number of frames to accelerate when jumping
+	private final long ACCELERATE_JUMP_TIME = 10;
+	
+	public Player(float x, float y, float maxSpeed, float xAcceleration, float yAcceleration, float size){
 		super(x, y, maxSpeed, size);
 		
 		if(!loadedTexture){
 			imageID = TextureLoader.loadTexture(TEXTURE_FILE);
 			loadedTexture = true;
 		}
-		this.acceleration = acceleration;
+		this.xAcceleration = xAcceleration;
+		this.yAcceleration = yAcceleration;
+		
+		curXSpeed = 0;
+		curYSpeed = 0;
+		isJumping = false;
 	}
 
 	@Override
 	public void moveUp() {
-		
+		if(!isJumping && !inAir){
+			startJumpTime = GameHandler.getTime();
+			
+			curYSpeed = yAcceleration;
+			position.addY(curYSpeed);
+			isJumping = true;
+			inAir = true;
+		}
 	}
 
+	// Kinda weird that if the player is supposed to be accelerating up that the
+	// code is in the method called "moveDown" but oh well, it's easier this way
 	@Override
 	public void moveDown() {
 		
+		curJumpTime = GameHandler.getTime();
+		
+		if(curJumpTime - startJumpTime >= ACCELERATE_JUMP_TIME){
+			isJumping = false;
+		}
+		
+		if(isJumping && curJumpTime - startJumpTime < ACCELERATE_JUMP_TIME){
+			curYSpeed += yAcceleration;
+		}else{
+			curYSpeed -= GRAVITY;
+		}
+		if(!inAir){
+			curYSpeed = 0;
+		}
+		System.out.println(curJumpTime - startJumpTime);
+		position.addY(curYSpeed);
 	}
 
 	@Override
 	public void moveLeft() {
-		if(!(curSpeed == -maxSpeed)){
-			if(curSpeed > -maxSpeed){
-				curSpeed -= acceleration;
+		if(!(curXSpeed == -maxSpeed)){
+			if(curXSpeed > -maxSpeed){
+				curXSpeed -= xAcceleration;
 			}
 			
-			if(curSpeed < -maxSpeed){
-				curSpeed = -maxSpeed;
+			if(curXSpeed < -maxSpeed){
+				curXSpeed = -maxSpeed;
 			}
 		}
 		
-		position.addX(curSpeed);
+		position.addX(curXSpeed);
 	}
 
 	@Override
 	public void moveRight() {
 		
-		if(!(curSpeed == maxSpeed)){
-			if(curSpeed < maxSpeed){
-				curSpeed += acceleration;
+		if(!(curXSpeed == maxSpeed)){
+			if(curXSpeed < maxSpeed){
+				curXSpeed += xAcceleration;
 			}
 			
-			if(curSpeed > maxSpeed){
-				curSpeed = maxSpeed;
+			if(curXSpeed > maxSpeed){
+				curXSpeed = maxSpeed;
 			}
 		}
-		position.addX(curSpeed);
+		position.addX(curXSpeed);
 	}
 	
 	public void slowToRest(){
 		
 		// Accelerate towards stop when moving left
-		if(curSpeed < 0){
-			curSpeed += acceleration;
+		if(curXSpeed < 0){
+			curXSpeed += xAcceleration;
 			
-			if(curSpeed > 0){
-				curSpeed = 0;
+			if(curXSpeed > 0){
+				curXSpeed = 0;
 			}
 		
 		// Accelerate towards stop when moving right
-		}else if (curSpeed > 0){
-			curSpeed -= acceleration;
+		}else if (curXSpeed > 0){
+			curXSpeed -= xAcceleration;
 			
-			if(curSpeed < 0){
-				curSpeed = 0;
+			if(curXSpeed < 0){
+				curXSpeed = 0;
 			}
 		}
 		
-		position.addX(curSpeed);
+		position.addX(curXSpeed);
 	}
 	
 	// Method to render the unit
@@ -113,7 +156,28 @@ public class Player extends Unit{
 		}glEnd();
 	}
 	
-	public float getCurSpeed(){
-		return curSpeed;
+	public float getCurXSpeed(){
+		return curXSpeed;
+	}
+	
+	public boolean isJumping(){
+		return isJumping;
+	}
+	
+	public void setInAir(boolean inAir){
+		this.inAir = inAir;
+	}
+	
+	public boolean inAir(){
+		return inAir;
+	}
+	
+	public void setYSpeed(float ySpeed){
+		curYSpeed = ySpeed;
+	}
+	
+	public void setPosition(Vector newPosition){
+		position.setX(newPosition.getX());
+		position.setY(newPosition.getY());
 	}
 }

@@ -80,7 +80,7 @@ public class GUI {
 		// Scroll right
 		if(playerX > curMinXDisplay + xResolution - MARGIN && playerX <= xBoundary - MARGIN){
 
-			curMinXDisplay += player.getCurSpeed();
+			curMinXDisplay += player.getCurXSpeed();
 			
 			if(curMinXDisplay > xBoundary){
 				curMinXDisplay = xBoundary - xResolution;
@@ -93,7 +93,7 @@ public class GUI {
 		// Scroll left
 		}else if(player.getPosition().getX() < curMinXDisplay + MARGIN && playerX >= MARGIN){
 
-			curMinXDisplay += player.getCurSpeed();
+			curMinXDisplay += player.getCurXSpeed();
 			
 			if(curMinXDisplay < 0){
 				curMinXDisplay = 0;

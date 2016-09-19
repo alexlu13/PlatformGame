@@ -22,6 +22,7 @@ public class FloorTile extends Tile{
 			imageID = TextureLoader.loadTexture(TEXTURE_FILE);
 			loadedTexture = true;
 		}
+		type = TileType.FLOOR;
 	}
 	
 	// Method to render the unit

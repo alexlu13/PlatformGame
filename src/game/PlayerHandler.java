@@ -5,7 +5,7 @@ public class PlayerHandler {
 	private Player player; 
 	
 	public PlayerHandler(){
-		player = new Player(100, 130, 8, 0.75f, 100);
+		player = new Player(100, 130, 8, 0.75f, 1.0f, 100);
 	}
 	
 	public void handlePlayer(){
@@ -17,8 +17,8 @@ public class PlayerHandler {
 	
 	// Method to handle input while in game
 	private void handleGameInput(){
-		Direction direction = InputHandler.pollKeyboardArrowKeys();
-		switch(direction){
+		Direction leftRightDir = InputHandler.pollKeyboardLeftRightKeys();
+		switch(leftRightDir){
 		
 		case LEFT :
 			player.moveLeft();
@@ -34,6 +34,24 @@ public class PlayerHandler {
 			
 		default :
 			break;
+		}
+		
+		Direction upDownDir = InputHandler.pollKeyboardUpDownKeys();
+		switch(upDownDir){
+		
+		case UP :
+			
+			if(!player.isJumping()){
+				player.moveUp();
+			}
+
+		default :
+			if(player.inAir()){
+				
+				player.moveDown();
+			}
+			break;
+		
 		}
 	}
 	
