@@ -21,7 +21,7 @@ public class Player extends Unit{
 	private float curXSpeed;
 	private float curYSpeed;
 	
-	private static final float GRAVITY = 0.5f;
+	private static final float GRAVITY = 1.0f;
 	
 	private boolean isJumping;
 	private boolean inAir;

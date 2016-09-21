@@ -51,12 +51,22 @@ public class GameHandler {
 		Player player = playerHandler.getPlayer();
 		
 		// TEMPORARY BANDAGE TO SOLVE ISSUE OF PLAYER% FALLING THROUGH LEVEL
+		// MORE BANDAGE
+		if(playerPosition.getX() - player.getSize() / 2 < 0){
+			player.getPosition().setX(player.getSize() / 2);
+		}
 		
+		if(playerPosition.getX() + player.getSize() / 2 > 1600){
+			player.getPosition().setX(1600 - player.getSize() / 2);
+		}
+			
 		if(playerPosition.getY() - (player.getSize() / 2) < tilePosition.getY() + (tile.getSize() / 2)){
 			System.out.println(playerPosition.getY() - (player.getSize() / 2) + " " + tilePosition.getY() + (tile.getSize()));
 			player.setInAir(false);
 			player.getPosition().setY(tilePosition.getY() + tile.getSize() / 2 + player.getSize() / 2);
 		}
+		
+		
 		
 		// END OF BANDAGE
 	}
