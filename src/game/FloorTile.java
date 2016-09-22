@@ -15,6 +15,8 @@ public class FloorTile extends Tile{
 	private static boolean loadedTexture = false;
 	private static int imageID = 0;
 	
+	private static TileType TYPE = TileType.FLOOR;
+	
 	public FloorTile(float x, float y, float size){
 		super(x, y, size);
 		
@@ -22,7 +24,6 @@ public class FloorTile extends Tile{
 			imageID = TextureLoader.loadTexture(TEXTURE_FILE);
 			loadedTexture = true;
 		}
-		type = TileType.FLOOR;
 	}
 	
 	// Method to render the unit
@@ -44,5 +45,9 @@ public class FloorTile extends Tile{
 			
 			
 		}glEnd();
+	}
+	
+	public TileType getTileType(){
+		return TYPE;
 	}
 }

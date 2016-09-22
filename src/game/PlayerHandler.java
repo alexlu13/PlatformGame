@@ -5,7 +5,7 @@ public class PlayerHandler {
 	private Player player; 
 	
 	public PlayerHandler(){
-		player = new Player(100, 130, 8, 0.75f, 1.0f, 100);
+		player = new Player(190, 130, 8, 0.75f, 1.0f, 100);
 	}
 	
 	public void handlePlayer(){

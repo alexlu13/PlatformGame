@@ -44,14 +44,11 @@ public class GameHandler {
 	
 	// Player tile interaction
 	private void playerTileInteraction(){
-		
-		Vector playerPosition = playerHandler.getPlayer().getPosition();
-		Tile tile = levelHandler.getCurTile(playerPosition);
-		Vector tilePosition = tile.getPosition();
 		Player player = playerHandler.getPlayer();
+		Vector playerPosition = player.getPosition();
+		Vector tempPosition = new Vector(playerPosition.getX(), playerPosition.getY() - player.getSize() / 2);
+		Tile tile = levelHandler.getCurTile(tempPosition);
 		
-		// TEMPORARY BANDAGE TO SOLVE ISSUE OF PLAYER% FALLING THROUGH LEVEL
-		// MORE BANDAGE
 		if(playerPosition.getX() - player.getSize() / 2 < 0){
 			player.getPosition().setX(player.getSize() / 2);
 		}
@@ -59,6 +56,38 @@ public class GameHandler {
 		if(playerPosition.getX() + player.getSize() / 2 > 1600){
 			player.getPosition().setX(1600 - player.getSize() / 2);
 		}
+		
+		if(tile != null){
+			TileType type = tile.getTileType();
+			Vector tilePosition = tile.getPosition();
+			
+			switch(type){
+			
+			case FLOOR:
+				
+				if(player.getCurYSpeed() <= 0 && playerPosition.getY() <= tilePosition.getY() + tile.getSize() / 2 + player.getSize() / 2){
+					player.setYSpeed(0);
+					System.out.println(tilePosition.getY() + tile.getSize() / 2);
+					playerPosition.setY(tilePosition.getY() + (tile.getSize() / 2) + (player.getSize() / 2));
+					player.setInAir(false);
+				}
+				
+				break;
+				
+			default:
+				break;
+			
+			}
+			
+		}else{
+			System.out.println("something");
+			player.setInAir(true);
+		}
+		
+		
+		// TEMPORARY BANDAGE TO SOLVE ISSUE OF PLAYER% FALLING THROUGH LEVEL
+		// MORE BANDAGE
+		/*
 			
 		if(playerPosition.getY() - (player.getSize() / 2) < tilePosition.getY() + (tile.getSize() / 2)){
 			System.out.println(playerPosition.getY() - (player.getSize() / 2) + " " + tilePosition.getY() + (tile.getSize()));
@@ -66,7 +95,7 @@ public class GameHandler {
 			player.getPosition().setY(tilePosition.getY() + tile.getSize() / 2 + player.getSize() / 2);
 		}
 		
-		
+		*/
 		
 		// END OF BANDAGE
 	}

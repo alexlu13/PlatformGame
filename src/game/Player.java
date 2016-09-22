@@ -78,7 +78,6 @@ public class Player extends Unit{
 		if(!inAir){
 			curYSpeed = 0;
 		}
-		System.out.println(curJumpTime - startJumpTime);
 		position.addY(curYSpeed);
 	}
 
@@ -158,6 +157,10 @@ public class Player extends Unit{
 	
 	public float getCurXSpeed(){
 		return curXSpeed;
+	}
+	
+	public float getCurYSpeed(){
+		return curYSpeed;
 	}
 	
 	public boolean isJumping(){
