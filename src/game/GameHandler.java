@@ -46,8 +46,13 @@ public class GameHandler {
 	private void playerTileInteraction(){
 		Player player = playerHandler.getPlayer();
 		Vector playerPosition = player.getPosition();
-		Vector tempPosition = new Vector(playerPosition.getX(), playerPosition.getY() - player.getSize() / 2);
-		Tile tile = levelHandler.getCurTile(tempPosition);
+		Vector tempYPosition = new Vector(playerPosition.getX(), playerPosition.getY() - player.getSize() / 2);
+		Vector tempXLeftPosition = new Vector(playerPosition.getX() - player.getSize() / 2, playerPosition.getY());
+		Vector tempXRightPosition = new Vector(playerPosition.getX() + player.getSize() / 2, playerPosition.getY());
+		
+		Tile downTile = levelHandler.getCurTile(tempYPosition);
+		Tile leftTile = levelHandler.getCurTile(tempXLeftPosition);
+		Tile rightTile = levelHandler.getCurTile(tempXRightPosition);
 		
 		if(playerPosition.getX() - player.getSize() / 2 < 0){
 			player.getPosition().setX(player.getSize() / 2);
@@ -57,18 +62,20 @@ public class GameHandler {
 			player.getPosition().setX(1600 - player.getSize() / 2);
 		}
 		
-		if(tile != null){
-			TileType type = tile.getTileType();
-			Vector tilePosition = tile.getPosition();
+		// Interact with tile below
+
+		
+		if(downTile != null){
+			TileType downType = downTile.getTileType();
+			Vector downTilePosition = downTile.getPosition();
 			
-			switch(type){
+			switch(downType){
 			
 			case FLOOR:
 				
-				if(player.getCurYSpeed() <= 0 && playerPosition.getY() <= tilePosition.getY() + tile.getSize() / 2 + player.getSize() / 2){
+				if(player.getCurYSpeed() <= 0 && playerPosition.getY() <= downTilePosition.getY() + downTile.getSize() / 2 + player.getSize() / 2){
 					player.setYSpeed(0);
-					System.out.println(tilePosition.getY() + tile.getSize() / 2);
-					playerPosition.setY(tilePosition.getY() + (tile.getSize() / 2) + (player.getSize() / 2));
+					playerPosition.setY(downTilePosition.getY() + (downTile.getSize() / 2) + (player.getSize() / 2));
 					player.setInAir(false);
 				}
 				
@@ -80,24 +87,53 @@ public class GameHandler {
 			}
 			
 		}else{
-			System.out.println("something");
 			player.setInAir(true);
 		}
 		
+		// Interact with tile to the left
 		
-		// TEMPORARY BANDAGE TO SOLVE ISSUE OF PLAYER% FALLING THROUGH LEVEL
-		// MORE BANDAGE
-		/*
+		if(leftTile != null){
+			TileType leftType = leftTile.getTileType();
 			
-		if(playerPosition.getY() - (player.getSize() / 2) < tilePosition.getY() + (tile.getSize() / 2)){
-			System.out.println(playerPosition.getY() - (player.getSize() / 2) + " " + tilePosition.getY() + (tile.getSize()));
-			player.setInAir(false);
-			player.getPosition().setY(tilePosition.getY() + tile.getSize() / 2 + player.getSize() / 2);
+			switch(leftType){
+			
+			case FLOOR:
+				Vector leftTilePosition = leftTile.getPosition();
+				
+				if(playerPosition.getX() <= leftTilePosition.getX() + leftTile.getSize() / 2){
+					player.setXSpeed(0);
+					playerPosition.setX(leftTilePosition.getX() + leftTile.getSize());
+				}
+				
+				break;
+				
+			default:
+				break;
+			
+			}
 		}
 		
-		*/
+		// Interact with tile to the right
 		
-		// END OF BANDAGE
+		if(rightTile != null){
+			Vector rightTilePosition = rightTile.getPosition();
+			TileType rightType = rightTile.getTileType();
+			
+			switch(rightType){
+			
+			case FLOOR:
+			
+				if(playerPosition.getX() <= rightTilePosition.getX() - rightTile.getSize() / 2){
+					player.setXSpeed(0);
+					playerPosition.setX(rightTilePosition.getX() - rightTile.getSize());
+				}	
+				
+				break;
+				
+			default:
+				break;
+			}
+		}
 	}
 	
 	public Player getPlayer(){

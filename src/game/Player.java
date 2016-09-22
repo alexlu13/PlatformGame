@@ -179,6 +179,10 @@ public class Player extends Unit{
 		curYSpeed = ySpeed;
 	}
 	
+	public void setXSpeed(float xSpeed){
+		curXSpeed = xSpeed;
+	}
+	
 	public void setPosition(Vector newPosition){
 		position.setX(newPosition.getX());
 		position.setY(newPosition.getY());

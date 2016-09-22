@@ -82,4 +82,8 @@ public class LevelHandler {
 			
 		}
 	}
+	
+	public Tile[][] getLevel(){
+		return tiles;
+	}
 }
