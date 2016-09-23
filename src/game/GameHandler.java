@@ -47,8 +47,8 @@ public class GameHandler {
 		Player player = playerHandler.getPlayer();
 		Vector playerPosition = player.getPosition();
 		Vector tempYPosition = new Vector(playerPosition.getX(), playerPosition.getY() - player.getSize() / 2);
-		Vector tempXLeftPosition = new Vector(playerPosition.getX() - player.getSize() / 2, playerPosition.getY());
-		Vector tempXRightPosition = new Vector(playerPosition.getX() + player.getSize() / 2, playerPosition.getY());
+		Vector tempXLeftPosition = new Vector(playerPosition.getX() - player.getSize(), playerPosition.getY() + player.getSize() / 2);
+		Vector tempXRightPosition = new Vector(playerPosition.getX() + player.getSize(), playerPosition.getY() + player.getSize() / 2);
 		
 		Tile downTile = levelHandler.getCurTile(tempYPosition);
 		Tile leftTile = levelHandler.getCurTile(tempXLeftPosition);
@@ -93,16 +93,15 @@ public class GameHandler {
 		// Interact with tile to the left
 		
 		if(leftTile != null){
+			Vector leftTilePosition = leftTile.getPosition();
 			TileType leftType = leftTile.getTileType();
 			
 			switch(leftType){
 			
 			case FLOOR:
-				Vector leftTilePosition = leftTile.getPosition();
 				
-				if(playerPosition.getX() <= leftTilePosition.getX() + leftTile.getSize() / 2 + player.getSize() / 2){
-					player.setXSpeed(0);
-					playerPosition.setX(leftTilePosition.getX() + leftTile.getSize());
+				if(playerPosition.getX() < leftTilePosition.getX() + leftTile.getSize() / 2 + player.getSize() / 2){
+					playerPosition.setX(leftTilePosition.getX() + leftTile.getSize() / 2 + player.getSize() / 2);
 				}
 				
 				break;
@@ -122,11 +121,12 @@ public class GameHandler {
 			switch(rightType){
 			
 			case FLOOR:
-			
-				if(playerPosition.getX() <= rightTilePosition.getX() - rightTile.getSize() / 2 - player.getSize() / 2){
-					player.setXSpeed(0);
-					playerPosition.setX(rightTilePosition.getX() - rightTile.getSize());
-				}	
+				
+				if(playerPosition.getX() > rightTilePosition.getX() - rightTile.getSize() / 2 - player.getSize() / 2){
+					
+					playerPosition.setX(rightTilePosition.getX() - rightTile.getSize() / 2 - player.getSize() / 2);
+
+				}
 				
 				break;
 				

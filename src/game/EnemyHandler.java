@@ -8,7 +8,7 @@ public class EnemyHandler {
 		numEnemies = 1;
 		
 		enemies = new Enemy[numEnemies];
-		enemies[0] = new TestEnemy(400, 130, 8, 100);
+		enemies[0] = new TestEnemy(450, 150, 8, 100);
 	}
 	
 	public void handleEnemies(){

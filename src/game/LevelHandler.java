@@ -10,7 +10,7 @@ public class LevelHandler {
 	private int xTiles;
 	private int yTiles;
 	
-	private final float TILE_SIZE = 80f;
+	private final float TILE_SIZE = 100f;
 	
 	private Vector maxCoordinate;
 	
