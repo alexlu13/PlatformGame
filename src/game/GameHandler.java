@@ -100,7 +100,7 @@ public class GameHandler {
 			case FLOOR:
 				Vector leftTilePosition = leftTile.getPosition();
 				
-				if(playerPosition.getX() <= leftTilePosition.getX() + leftTile.getSize() / 2){
+				if(playerPosition.getX() <= leftTilePosition.getX() + leftTile.getSize() / 2 + player.getSize() / 2){
 					player.setXSpeed(0);
 					playerPosition.setX(leftTilePosition.getX() + leftTile.getSize());
 				}
@@ -123,7 +123,7 @@ public class GameHandler {
 			
 			case FLOOR:
 			
-				if(playerPosition.getX() <= rightTilePosition.getX() - rightTile.getSize() / 2){
+				if(playerPosition.getX() <= rightTilePosition.getX() - rightTile.getSize() / 2 - player.getSize() / 2){
 					player.setXSpeed(0);
 					playerPosition.setX(rightTilePosition.getX() - rightTile.getSize());
 				}	
