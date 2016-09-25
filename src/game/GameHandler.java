@@ -15,6 +15,8 @@ public class GameHandler {
 	
 	private GameState state;
 	
+	private Tile[][] tiles;
+	
 	public GameHandler(){
 		state = GameState.GAME;
 	}
@@ -23,6 +25,7 @@ public class GameHandler {
 	public void handlerInit(){
 
 		levelHandler = new LevelHandler();
+		tiles = levelHandler.getLevel();
 		playerHandler = new PlayerHandler();
 		enemyHandler = new EnemyHandler();
 	}
@@ -46,37 +49,43 @@ public class GameHandler {
 	private void playerTileInteraction(){
 		Player player = playerHandler.getPlayer();
 		Vector playerPosition = player.getPosition();
-		Vector tempYPosition = new Vector(playerPosition.getX(), playerPosition.getY() - player.getSize() / 2);
-		Vector tempXLeftPosition = new Vector(playerPosition.getX() - player.getSize(), playerPosition.getY() + player.getSize() / 2);
-		Vector tempXRightPosition = new Vector(playerPosition.getX() + player.getSize(), playerPosition.getY() + player.getSize() / 2);
 		
-		Tile downTile = levelHandler.getCurTile(tempYPosition);
-		Tile leftTile = levelHandler.getCurTile(tempXLeftPosition);
-		Tile rightTile = levelHandler.getCurTile(tempXRightPosition);
+		// Check below for tile
+		float yBelow = playerPosition.getY() - player.getSize() / 2 - levelHandler.getTileSize() / 2;
+		float xRangeLower = playerPosition.getX() - player.getSize() / 2;
+		float xRangeUpper = playerPosition.getX() + player.getSize() / 2;
 		
-		if(playerPosition.getX() - player.getSize() / 2 < 0){
-			player.getPosition().setX(player.getSize() / 2);
-		}
+		Tile downTileLower = levelHandler.getCurTile(new Vector(xRangeLower, yBelow));
+		Tile downTileUpper = levelHandler.getCurTile(new Vector(xRangeUpper, yBelow));
 		
-		if(playerPosition.getX() + player.getSize() / 2 > 1600){
-			player.getPosition().setX(1600 - player.getSize() / 2);
-		}
-		
-		// Interact with tile below
-
-		
-		if(downTile != null){
-			TileType downType = downTile.getTileType();
-			Vector downTilePosition = downTile.getPosition();
-			
+		if(downTileLower != null){
+			TileType downType = downTileLower.getTileType();
+			Vector downTilePosition = downTileLower.getPosition();
 			switch(downType){
 			
 			case FLOOR:
-				
-				if(player.getCurYSpeed() <= 0 && playerPosition.getY() <= downTilePosition.getY() + downTile.getSize() / 2 + player.getSize() / 2){
-					player.setYSpeed(0);
-					playerPosition.setY(downTilePosition.getY() + (downTile.getSize() / 2) + (player.getSize() / 2));
+				if(player.getCurYSpeed() <= 0 && playerPosition.getY() <= downTilePosition.getY() + levelHandler.getTileSize() / 2 + player.getSize() / 2){
+					playerPosition.setY(downTilePosition.getY() + (levelHandler.getTileSize() / 2) + (player.getSize() / 2));
 					player.setInAir(false);
+					player.setYSpeed(0);
+				}
+				break;
+				
+			default:
+				break;
+			
+			}
+			
+		}else if(downTileUpper != null){
+			TileType downType = downTileUpper.getTileType();
+			Vector downTilePosition = downTileUpper.getPosition();
+			switch(downType){
+			
+			case FLOOR:
+				if(player.getCurYSpeed() <= 0 && playerPosition.getY() <= downTilePosition.getY() + levelHandler.getTileSize() / 2 + player.getSize() / 2){
+					playerPosition.setY(downTilePosition.getY() + (levelHandler.getTileSize() / 2) + (player.getSize() / 2));
+					player.setInAir(false);
+					player.setYSpeed(0);
 				}
 				
 				break;
@@ -90,8 +99,13 @@ public class GameHandler {
 			player.setInAir(true);
 		}
 		
-		// Interact with tile to the left
+		Vector tempXLeftPosition = new Vector(playerPosition.getX() - player.getSize() / 2, playerPosition.getY());
+		Vector tempXRightPosition = new Vector(playerPosition.getX() + player.getSize() / 2, playerPosition.getY());
+
+		Tile leftTile = levelHandler.getCurTile(tempXLeftPosition);
+		Tile rightTile = levelHandler.getCurTile(tempXRightPosition);
 		
+		// Interact with tile to the left
 		if(leftTile != null){
 			Vector leftTilePosition = leftTile.getPosition();
 			TileType leftType = leftTile.getTileType();

@@ -44,9 +44,13 @@ public class LevelHandler {
 	
 	// Note: getCurTile may return null
 	public Tile getCurTile(Vector position){
-		int x = (int) ((position.getX() - (TILE_SIZE / 2)) / TILE_SIZE);
-		int y = (int) ((position.getY() - (TILE_SIZE / 2)) / TILE_SIZE);
-		return tiles[x][y];
+		int x = (int) (position.getX() / TILE_SIZE);
+		int y = (int) (position.getY() / TILE_SIZE);
+		try{
+			return tiles[x][y];
+		}catch(ArrayIndexOutOfBoundsException ex){
+			return null;
+		}
 	}
 	
 	private void loadLevel(int level){
@@ -85,5 +89,9 @@ public class LevelHandler {
 	
 	public Tile[][] getLevel(){
 		return tiles;
+	}
+	
+	public float getTileSize(){
+		return TILE_SIZE;
 	}
 }
