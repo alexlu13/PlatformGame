@@ -52,6 +52,7 @@ public class GameHandler {
 		
 		// Check below for tile
 		float yBelow = playerPosition.getY() - player.getSize() / 2 - levelHandler.getTileSize() / 2;
+		float yAbove = playerPosition.getY() + player.getSize() / 2 + levelHandler.getTileSize() / 2;
 		float xRangeLower = playerPosition.getX() - player.getSize() / 2;
 		float xRangeUpper = playerPosition.getX() + player.getSize() / 2;
 		
@@ -97,6 +98,49 @@ public class GameHandler {
 			
 		}else{
 			player.setInAir(true);
+		}
+		
+		Tile upTileLower = levelHandler.getCurTile(new Vector(xRangeLower, yAbove));
+		Tile upTileUpper = levelHandler.getCurTile(new Vector(xRangeUpper, yAbove));
+		
+		if(upTileLower != null){
+			TileType upType = upTileLower.getTileType();
+			Vector upTilePosition = upTileLower.getPosition();
+			
+			switch(upType){
+			
+			case FLOOR:
+				
+				if(player.getCurYSpeed() >= 0 && playerPosition.getY() >= upTilePosition.getY() - levelHandler.getTileSize() / 2 - player.getSize() / 2){
+					playerPosition.setY(upTilePosition.getY() - (levelHandler.getTileSize() / 2) - player.getSize() / 2);
+					player.setYSpeed(0);
+				}
+				
+				break;
+				
+			default:
+				break;
+			
+			}
+		}else if(upTileUpper!= null){
+			TileType upType = upTileUpper.getTileType();
+			Vector upTilePosition = upTileUpper.getPosition();
+			
+			switch(upType){
+			
+			case FLOOR:
+				
+				if(player.getCurYSpeed() >= 0 && playerPosition.getY() >= upTilePosition.getY() - levelHandler.getTileSize() / 2 - player.getSize() / 2){
+					playerPosition.setY(upTilePosition.getY() - (levelHandler.getTileSize() / 2) - player.getSize() / 2);
+					player.setYSpeed(0);
+				}
+				
+				break;
+				
+			default:
+				break;
+			
+			}
 		}
 		
 		Vector tempXLeftPosition = new Vector(playerPosition.getX() - player.getSize() / 2, playerPosition.getY());
