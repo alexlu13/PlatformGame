@@ -32,8 +32,8 @@ public class Player extends Unit{
 	// Number of frames to accelerate when jumping
 	private final long ACCELERATE_JUMP_TIME = 10;
 	
-	public Player(float x, float y, float maxSpeed, float xAcceleration, float yAcceleration, float size){
-		super(x, y, maxSpeed, size);
+	public Player(float x, float y, float maxSpeed, float xAcceleration, float yAcceleration, float sizeX, float sizeY){
+		super(x, y, maxSpeed, sizeX, sizeY);
 		
 		if(!loadedTexture){
 			imageID = TextureLoader.loadTexture(TEXTURE_FILE);
@@ -140,16 +140,16 @@ public class Player extends Unit{
 		glBegin(GL_QUADS);{
 			
 			glTexCoord2f(0, 1);
-			glVertex2f(position.getX() - (size / 2), position.getY() - (size / 2));
+			glVertex2f(position.getX() - (sizeX / 2), position.getY() - (sizeY / 2));
 			
 			glTexCoord2f(1, 1);
-			glVertex2f(position.getX() + (size / 2), position.getY() - (size / 2));
+			glVertex2f(position.getX() + (sizeX / 2), position.getY() - (sizeY / 2));
 			
 			glTexCoord2f(1, 0);
-			glVertex2f(position.getX() + (size / 2), position.getY() + (size / 2));
+			glVertex2f(position.getX() + (sizeX / 2), position.getY() + (sizeY / 2));
 			
 			glTexCoord2f(0, 0);
-			glVertex2f(position.getX() - (size / 2), position.getY() + (size / 2));
+			glVertex2f(position.getX() - (sizeX / 2), position.getY() + (sizeY / 2));
 			
 			
 		}glEnd();

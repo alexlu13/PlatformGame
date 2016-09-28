@@ -8,22 +8,24 @@ public abstract class Unit {
 	protected Vector position;
 	
 	// Size of the unit in pixels
-	protected float size;
-	
+	protected float sizeX;
+	protected float sizeY;
 	// Default speed for the unit to move
 	protected float maxSpeed;
 	
 	// Constructors
-	public Unit(float x, float y, float maxSpeed, float size){
+	public Unit(float x, float y, float maxSpeed, float sizeX, float sizeY){
 		position = new Vector(x, y);
 		this.maxSpeed = maxSpeed;
-		this.size = size;
+		this.sizeX = sizeX;
+		this.sizeY = sizeY;
 	}
 	
-	public Unit(Vector vector, float xSpeed, float size){
+	public Unit(Vector vector, float xSpeed, float sizeX, float sizeY){
 		this.position = new Vector(vector.getX(), vector.getY());
 		this.maxSpeed = xSpeed;
-		this.size = size;
+		this.sizeX = sizeX;
+		this.sizeY = sizeY;
 	}
 	
 	// Abstract movement methods
@@ -38,7 +40,11 @@ public abstract class Unit {
 		return position;
 	}
 	
-	public float getSize(){
-		return size;
+	public float getSizeX(){
+		return sizeX;
+	}
+	
+	public float getSizeY(){
+		return sizeY;
 	}
 }
