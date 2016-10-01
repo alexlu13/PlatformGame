@@ -16,4 +16,8 @@ public class EnemyHandler {
 			enemies[i].render();
 		}
 	}
+	
+	public Enemy[] getEnemies(){
+		return enemies;
+	}
 }

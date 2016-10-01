@@ -25,9 +25,8 @@ public class GameHandler {
 	// Method to handle the game
 	public void handleGame(){
 		timer++;
-		additionalPlayerHandling();
 		playerHandler.handlePlayer();
-
+		additionalPlayerHandling();
 		levelHandler.handleLevel();
 		enemyHandler.handleEnemies();
 	}
@@ -35,6 +34,7 @@ public class GameHandler {
 	// Handling the parts that need information from other handlers
 	private void additionalPlayerHandling(){
 		playerTileInteraction();
+		playerEnemyInteraction();
 	}
 	
 	// Player tile interaction
@@ -182,6 +182,21 @@ public class GameHandler {
 				
 			default:
 				break;
+			}
+		}
+	}
+	
+	private void playerEnemyInteraction(){
+		Enemy[] enemies = enemyHandler.getEnemies();
+		Player player = playerHandler.getPlayer();
+		Vector playerPosition = player.getPosition();
+		for(int i = 0; i < enemies.length; i++){
+			Vector enemyPosition = enemies[i].getPosition();
+			if(playerPosition.getX() <= enemyPosition.getX() + enemies[i].getSizeX() / 2 &&
+					playerPosition.getX() >= enemyPosition.getX() - enemies[i].getSizeX() / 2 &&
+					playerPosition.getY() >= enemyPosition.getY() - enemies[i].getSizeY() / 2 &&
+					playerPosition.getY() <= enemyPosition.getY() + enemies[i].getSizeY() / 2){
+				System.out.println("deaded");
 			}
 		}
 	}
