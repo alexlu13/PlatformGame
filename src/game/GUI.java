@@ -73,25 +73,20 @@ public class GUI {
 	public void scrollScreen(){
 		Player player = handler.getPlayer();
 		float playerX = player.getPosition().getX();
+		float playerY = player.getPosition().getY();
 		Vector boundaries = handler.getLevelEndBounds();
 		
-		float xBoundary = boundaries.getX();
-		
 		// Scroll right
-		if(playerX > curMinXDisplay + xResolution - MARGIN && playerX <= xBoundary - MARGIN){
+		if(playerX > curMinXDisplay + xResolution - MARGIN){
 
 			curMinXDisplay += player.getCurXSpeed();
-			
-			if(curMinXDisplay > xBoundary){
-				curMinXDisplay = xBoundary - xResolution;
-			}
 			
 			glMatrixMode(GL_PROJECTION);
 			glLoadIdentity();
 			glOrtho(curMinXDisplay, curMinXDisplay + xResolution, curMinYDisplay, curMinYDisplay + yResolution, 1, -1);
 			
 		// Scroll left
-		}else if(player.getPosition().getX() < curMinXDisplay + MARGIN && playerX >= MARGIN){
+		}else if(playerX < curMinXDisplay + MARGIN && playerX >= MARGIN){
 
 			curMinXDisplay += player.getCurXSpeed();
 			
@@ -99,6 +94,22 @@ public class GUI {
 				curMinXDisplay = 0;
 			}
 			
+			glMatrixMode(GL_PROJECTION);
+			glLoadIdentity();
+			glOrtho(curMinXDisplay, curMinXDisplay + xResolution, curMinYDisplay, curMinYDisplay + yResolution, 1, -1);
+
+		}
+		
+		if(playerY > curMinYDisplay + yResolution - MARGIN){
+			curMinYDisplay += player.getCurYSpeed();
+			glMatrixMode(GL_PROJECTION);
+			glLoadIdentity();
+			glOrtho(curMinXDisplay, curMinXDisplay + xResolution, curMinYDisplay, curMinYDisplay + yResolution, 1, -1);
+
+		}
+		
+		if(playerY < curMinYDisplay + MARGIN){
+			curMinYDisplay += player.getCurYSpeed();
 			glMatrixMode(GL_PROJECTION);
 			glLoadIdentity();
 			glOrtho(curMinXDisplay, curMinXDisplay + xResolution, curMinYDisplay, curMinYDisplay + yResolution, 1, -1);
