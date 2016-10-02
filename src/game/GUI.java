@@ -74,7 +74,6 @@ public class GUI {
 		Player player = handler.getPlayer();
 		float playerX = player.getPosition().getX();
 		float playerY = player.getPosition().getY();
-		Vector boundaries = handler.getLevelEndBounds();
 		
 		// Scroll right
 		if(playerX > curMinXDisplay + xResolution - MARGIN){

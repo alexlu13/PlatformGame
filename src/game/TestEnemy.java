@@ -8,10 +8,14 @@ public class TestEnemy extends Enemy{
 	
 	private static int imageID;
 	private static boolean loadedTexture = false;
+	private float range;
 	
-	public TestEnemy(float x, float y, float maxSpeed, float sizeX, float sizeY) {
+	private float dist = 0;
+	private boolean goingLeft = true;
+	
+	public TestEnemy(float x, float y, float maxSpeed, float sizeX, float sizeY, float range) {
 		super(x, y, maxSpeed, sizeX, sizeY);
-		
+		this.range = range;
 		if(!loadedTexture){
 			imageID = TextureLoader.loadTexture(TEXTURE_FILE);
 		}
@@ -32,14 +36,34 @@ public class TestEnemy extends Enemy{
 	@Override
 	public void moveLeft() {
 		position.addX(-maxSpeed);
+		dist -= maxSpeed;
 	}
 
 	@Override
 	public void moveRight() {
 		position.addX(maxSpeed);
-		
+		dist += maxSpeed;
 	}
 
+	public void movement(){
+		
+		if(goingLeft){
+			moveLeft();
+			
+			if(dist <= -range){
+				goingLeft = false;
+			}
+			
+		}else{
+			moveRight();
+			
+			if(dist >= range){
+				goingLeft = true;
+			}
+		}
+		
+	}
+	
 	@Override
 	public void render() {
 		

@@ -6,5 +6,6 @@ public abstract class Enemy extends Unit{
 		super(x, y, maxSpeed, sizeX, sizeY);
 	}
 	
+	abstract public void movement();
 	
 }
