@@ -13,6 +13,10 @@ public abstract class Unit {
 	// Default speed for the unit to move
 	protected float maxSpeed;
 	
+	protected float ySpeed;
+	
+	protected boolean inAir;
+	
 	// Constructors
 	public Unit(float x, float y, float maxSpeed, float sizeX, float sizeY){
 		position = new Vector(x, y);
@@ -46,5 +50,21 @@ public abstract class Unit {
 	
 	public float getSizeY(){
 		return sizeY;
+	}
+
+	public float getCurYSpeed() {
+		return ySpeed;
+	}
+
+	public void setYSpeed(float speed) {
+		ySpeed = speed;
+	}
+
+	public void setInAir(boolean inAir) {
+		this.inAir = inAir;
+	}
+	
+	protected void moveY(){
+		position.addY(ySpeed);
 	}
 }

@@ -13,6 +13,8 @@ public class TestEnemy extends Enemy{
 	private float dist = 0;
 	private boolean goingLeft = true;
 	
+	protected float GRAVITY = -1.0f;
+	
 	public TestEnemy(float x, float y, float maxSpeed, float sizeX, float sizeY, float range) {
 		super(x, y, maxSpeed, sizeX, sizeY);
 		this.range = range;
@@ -62,6 +64,10 @@ public class TestEnemy extends Enemy{
 			}
 		}
 		
+		if(inAir){
+			ySpeed += GRAVITY;
+			moveY();
+		}
 	}
 	
 	@Override

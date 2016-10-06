@@ -5,10 +5,11 @@ public class EnemyHandler {
 	private int numEnemies;
 	
 	public EnemyHandler(){
-		numEnemies = 1;
+		numEnemies = 2;
 		
 		enemies = new Enemy[numEnemies];
-		enemies[0] = new TestEnemy(450, 150, 2, 100, 100, 300);
+		enemies[0] = new TestEnemy(450, 300, 2, 100, 100, 300);
+		enemies[1] = new TestEnemy(1000, 600, 2, 100, 100, 300);
 	}
 	
 	public void handleEnemies(){

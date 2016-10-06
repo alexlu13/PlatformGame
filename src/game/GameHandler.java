@@ -26,20 +26,31 @@ public class GameHandler {
 	public void handleGame(){
 		timer++;
 		playerHandler.handlePlayer();
-		additionalPlayerHandling();
+		additionalHandling();
 		levelHandler.handleLevel();
 		enemyHandler.handleEnemies();
 	}
 
 	// Handling the parts that need information from other handlers
-	private void additionalPlayerHandling(){
-		playerTileInteraction();
+	private void additionalHandling(){
+		tileInteraction();
 		playerEnemyInteraction();
 	}
 	
+	private void tileInteraction(){
+		
+		unitTileInteraction(playerHandler.getPlayer());
+		
+		Enemy enemies[] = enemyHandler.getEnemies();
+		
+		for(int i = 0; i < enemies.length; i++){
+			unitTileInteraction(enemies[i]);
+		}
+		
+	}
+	
 	// Player tile interaction
-	private void playerTileInteraction(){
-		Player player = playerHandler.getPlayer();
+	private void unitTileInteraction(Unit player){
 		Vector playerPosition = player.getPosition();
 		
 		// Check below for tile
